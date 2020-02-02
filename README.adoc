@@ -1,0 +1,9 @@
+= webhostmeta
+
+== License
+
+Licensed under the Do What The Fuck You Want To Public License Version 2(link:./LICENSE[LICENSE] or http://www.wtfpl.net/txt/copying/)
+
+== Author
+
+https://www.sc3.fun[銀猫さん] (link:mailto:silverscat_3@mail.sc3.fun[silverscat_3@mail.sc3.fun])
