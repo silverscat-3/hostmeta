@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"encoding/xml"
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -11,17 +11,23 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-const expectedXML = `
-<?xml version="1.0"?>
-<XRD xmlns="http://docs.oasis-open.org/ns/xri/xrd-1.0">
-  <link type="html" href="http://example.org"/>
-  <link type="html" href="http://toyota.jp/yaris"/>
-</XRD>
+const expectedJSON = `
+{
+  "links": [
+    {
+      "type": "html",
+      "href": "http://example.org"
+    },
+    {
+      "type": "html",
+      "href": "http://toyota.jp/yaris"
+    }
+  ]
+}
 `
 
-func TestHostMetaHandle(t *testing.T) {
-
-	hmh := HostMetaHandler{
+func TestHostMetaJSONHandle(t *testing.T) {
+	hmh := HostMetaJSONHandler{
 		Links: []hostmeta.Link{
 			hostmeta.Link{
 				Href: "http://example.org",
@@ -42,20 +48,16 @@ func TestHostMetaHandle(t *testing.T) {
 		t.Fatalf("Failed test by http.Get(). %v", err)
 	}
 
-	if http.StatusOK != r.StatusCode {
-		t.Fatalf("Failed test by HTTP error. %v", r.StatusCode)
-	}
-
 	body, err := ioutil.ReadAll(r.Body)
 	if nil != err {
 		t.Fatalf("Failed test by ioutil.ReadAll(). %v", err)
 	}
 
 	var expected interface{}
-	xml.Unmarshal([]byte(expectedXML), &expected)
+	json.Unmarshal([]byte(expectedJSON), &expected)
 
 	var actual interface{}
-	if err = xml.Unmarshal(body, &actual); nil != err {
+	if err = json.Unmarshal(body, &actual); nil != err {
 		t.Fatalf("Failed test! Invalid response type. %v", string(body))
 	}
 
