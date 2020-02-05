@@ -16,3 +16,12 @@ type (
 		Template string `xml:"template,attr,omitempty" json:"template,omitempty"`
 	}
 )
+
+func NewLink(Rel, Type, Href, Template string) *Link {
+	return &Link{
+		Rel:      Rel,
+		Type:     Type,
+		Href:     Href,
+		Template: Template,
+	}
+}
