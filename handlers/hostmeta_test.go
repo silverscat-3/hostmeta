@@ -22,12 +22,12 @@ const expectedXML = `
 func TestHostMetaHandle(t *testing.T) {
 
 	hmh := HostMetaHandler{
-		Links: []hostmeta.Link{
-			hostmeta.Link{
+		Links: []*hostmeta.Link{
+			&hostmeta.Link{
 				Href: "http://example.org",
 				Type: "html",
 			},
-			hostmeta.Link{
+			&hostmeta.Link{
 				Href: "http://toyota.jp/yaris",
 				Type: "html",
 			},

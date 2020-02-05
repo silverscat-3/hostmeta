@@ -8,7 +8,7 @@ import (
 )
 
 type HostMetaJSONHandler struct {
-	Links []hostmeta.Link
+	Links []*hostmeta.Link
 }
 
 func (h *HostMetaJSONHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -18,9 +18,9 @@ func (h *HostMetaJSONHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) 
 	}
 
 	l := &struct {
-		Links *[]hostmeta.Link `json:"links"`
+		Links []*hostmeta.Link `json:"links"`
 	}{
-		Links: &h.Links,
+		Links: h.Links,
 	}
 
 	body, err := json.Marshal(l)

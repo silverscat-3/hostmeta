@@ -8,7 +8,7 @@ import (
 )
 
 type HostMetaHandler struct {
-	Links []hostmeta.Link
+	Links []*hostmeta.Link
 }
 
 func (h *HostMetaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -17,7 +17,7 @@ func (h *HostMetaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	type alias []hostmeta.Link
+	type alias []*hostmeta.Link
 	l := &struct {
 		*alias  `xml:"link"`
 		XMLName xml.Name `xml:"XRD"`

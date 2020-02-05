@@ -28,12 +28,12 @@ const expectedJSON = `
 
 func TestHostMetaJSONHandle(t *testing.T) {
 	hmh := HostMetaJSONHandler{
-		Links: []hostmeta.Link{
-			hostmeta.Link{
+		Links: []*hostmeta.Link{
+			&hostmeta.Link{
 				Href: "http://example.org",
 				Type: "html",
 			},
-			hostmeta.Link{
+			&hostmeta.Link{
 				Href: "http://toyota.jp/yaris",
 				Type: "html",
 			},
