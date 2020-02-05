@@ -46,7 +46,7 @@ func TestHostMetaJSONHandle(t *testing.T) {
 
 	r, err := http.Get(ts.URL)
 	if nil != err {
-		t.Fatalf("Failed test by http.Get(). %v", err)
+		t.Fatalf("Failed test! http.Get(). %v", err)
 	}
 
 	ct, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
@@ -55,12 +55,12 @@ func TestHostMetaJSONHandle(t *testing.T) {
 	}
 
 	if http.StatusOK != r.StatusCode {
-		t.Fatalf("Failed test by HTTP error. %v", r.StatusCode)
+		t.Fatalf("Failed test! HTTP error. %v", r.StatusCode)
 	}
 
 	body, err := ioutil.ReadAll(r.Body)
 	if nil != err {
-		t.Fatalf("Failed test by ioutil.ReadAll(). %v", err)
+		t.Fatalf("Failed test! ioutil.ReadAll(). %v", err)
 	}
 
 	var expected interface{}
