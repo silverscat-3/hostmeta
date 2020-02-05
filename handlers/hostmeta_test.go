@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/xml"
 	"io/ioutil"
+	"mime"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -40,6 +41,11 @@ func TestHostMetaHandle(t *testing.T) {
 	r, err := http.Get(ts.URL)
 	if nil != err {
 		t.Fatalf("Failed test by http.Get(). %v", err)
+	}
+
+	ct, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
+	if "application/xrd+xml" != ct {
+		t.Fatalf("Failed test! Invalid Content-Type. %v", r.Header.Get("Content-Type"))
 	}
 
 	if http.StatusOK != r.StatusCode {

@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"io/ioutil"
+	"mime"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -48,6 +49,15 @@ func TestHostMetaJSONHandle(t *testing.T) {
 		t.Fatalf("Failed test by http.Get(). %v", err)
 	}
 
+	ct, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
+	if "application/json" != ct {
+		t.Fatalf("Failed test! Invalid Content-Type. %v", r.Header.Get("Content-Type"))
+	}
+
+	if http.StatusOK != r.StatusCode {
+		t.Fatalf("Failed test by HTTP error. %v", r.StatusCode)
+	}
+
 	body, err := ioutil.ReadAll(r.Body)
 	if nil != err {
 		t.Fatalf("Failed test by ioutil.ReadAll(). %v", err)
@@ -58,7 +68,7 @@ func TestHostMetaJSONHandle(t *testing.T) {
 
 	var actual interface{}
 	if err = json.Unmarshal(body, &actual); nil != err {
-		t.Fatalf("Failed test! Invalid response type. %v", string(body))
+		t.Fatalf("Failed test! Invalid response. %v", string(body))
 	}
 
 	assert.Equal(t, expected, actual)

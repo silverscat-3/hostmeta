@@ -33,7 +33,7 @@ func (h *HostMetaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	w.Header().Set("Content-Type", "application/xrd+xml; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
-	w.Header().Add("content-type", "application/xrd+xml")
 	w.Write(body)
 }
